@@ -60,21 +60,44 @@ public class Evento {
 
 	// metodo prenota & disdici
 
-	public void prenota(String prenotaEvento) {
-		if (numeroPostiPrenotati <= 100) {
+//	public int prenota(int prenotaEvento) {
+//		if (prenotaEvento <= 100) {
+//			numeroPostiPrenotati = numeroPostiPrenotati +1;
+//			System.out.println("1 posto aggiunto");
+//		} else {
+//			numeroPostiPrenotati--;
+//			System.out.println("non ha posti disponibili");
+//
+//		}
+//		return prenotaEvento;
+//	}
+
+	public int prenota(int prenotaEvento) {
+		if (numeroPostiPrenotati >= numeroPostiTotale) {
+			System.out.println("Non ci sono posti disponibili per questo evento.");
+		} else {
 			numeroPostiPrenotati++;
-			System.out.println("1 posto aggiunto");
+			System.out.println("Prenotazione effettuata con successo");
+		}
+		return numeroPostiPrenotati;
+	}
+	
+	public int disdici(int disdiciEvento) {
+		if (numeroPostiPrenotati == 0 ) {
+			System.out.println("Non ci sono posti da disdire");
 		} else {
 			numeroPostiPrenotati--;
-			System.out.println("non ha posti disponibili");
-
+			System.out.println("prenotazione effettuata con successo");
 		}
+		return numeroPostiPrenotati;
 	}
+
 
 	@Override
 	public String toString() {
-		return "titolo del evento: " + titolo + "\n"+ "data del evento: " + data +"\n" + "inserici totale numeri posti: "
-				+ numeroPostiTotale + "\n" + "inserici totale posti prenotati" + numeroPostiPrenotati;
+		return "titolo del evento: " + titolo + "\n" + "data del evento: " + data + "\n"
+				+ "inserici totale numeri posti: " + numeroPostiTotale + "\n" + "inserici totale posti prenotati"
+				+ numeroPostiPrenotati;
 	}
 
 }
