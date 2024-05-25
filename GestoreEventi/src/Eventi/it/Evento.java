@@ -1,19 +1,31 @@
 package Eventi.it;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Evento {
-	// attributi del evento
+
+	// attributi
 	private String titolo;
-	private String data;
+	private LocalDateTime data;
 	private int numeroPostiTotale;
 	private int numeroPostiPrenotati;
+	private DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+	private int numeroPostiDefiniti;
 
-	// costruttore che inizializza gli attributi
-	public Evento(String titolo, String data, int numeroPostiTotali) {
-		this.titolo = titolo;
-		this.data = data;
+	public Evento() {
+
+	}
+
+	// costruttore overload
+	public Evento(int numeroPostiTotali) {
+		this.titolo = "";
+//		LocalDate dateToConvert = LocalDate.parse(data,dateFormatter);
+		this.data = LocalDateTime.now();
 		this.numeroPostiTotale = numeroPostiTotali;
 		this.numeroPostiPrenotati = 0; // Inizializzato a 0
-
+		this.numeroPostiDefiniti = numeroPostiTotali;
 	}
 
 	// get&set di titolo
@@ -26,78 +38,68 @@ public class Evento {
 	}
 
 	// get&set data
-	public String getData() {
+	public LocalDateTime getData() {
 		return this.data;
 	}
 
-	public void setData(String dataEvento) {
-		if (dataEvento == dataEvento) {
-			System.out.println("data del evento valido");
-		} else {
-			System.out.println("data del evento non valido");
+	public void setData(LocalDateTime dataEvento) {
+		if (this.data.isAfter(dataEvento)) {
+			System.out.println("data no disponibile");
+			return;
 		}
-
 		this.data = dataEvento;
 	}
 
-	// get&set posti totale
-	public int getPostiTotali() {
+	// gettotali
+	public int getPostiTotale() {
 		return this.numeroPostiTotale;
 	}
 
-	public void setPostiTotali(int postiTotaliEvento) {
-		if (postiTotaliEvento > 0) {
-			System.out.println("e disponibile");
-		} else {
-			System.out.println("non disponibile");
-		}
-	}
-
-	// get posti prenotati
+	// getposti
 	public int getPostiPrenotati() {
 		return this.numeroPostiPrenotati;
 	}
 
-	// metodo prenota & disdici
+	// prenota
+	public void prenota(int postiDaPrentare) {
 
-//	public int prenota(int prenotaEvento) {
-//		if (prenotaEvento <= 100) {
-//			numeroPostiPrenotati = numeroPostiPrenotati +1;
-//			System.out.println("1 posto aggiunto");
-//		} else {
-//			numeroPostiPrenotati--;
-//			System.out.println("non ha posti disponibili");
-//
-//		}
-//		return prenotaEvento;
-//	}
-
-	public int prenota(int prenotaEvento) {
-		if (numeroPostiPrenotati >= numeroPostiTotale) {
-			System.out.println("Non ci sono posti disponibili per questo evento.");
-		} else {
-			numeroPostiPrenotati++;
-			System.out.println("Prenotazione effettuata con successo");
+		if (numeroPostiTotale == 0) {
+			System.out.println("posti non disponibile");
+			return;
 		}
-		return numeroPostiPrenotati;
+
+		this.numeroPostiPrenotati += postiDaPrentare;
+		this.numeroPostiTotale -= postiDaPrentare;
+
+	}
+
+	// disdici
+
+	public void disdici(int postiDaDisdire) {
+
+		if (numeroPostiTotale >= numeroPostiDefiniti) {
+			System.out.println("evento non valido");
+			return;
+		}
+
+		this.numeroPostiPrenotati -= postiDaDisdire;
+		this.numeroPostiTotale += postiDaDisdire;
+
 	}
 	
-	public int disdici(int disdiciEvento) {
-		if (numeroPostiPrenotati == 0 ) {
-			System.out.println("Non ci sono posti da disdire");
-		} else {
-			numeroPostiPrenotati--;
-			System.out.println("prenotazione effettuata con successo");
+	public boolean isValidDate(LocalDateTime dataEvento) {
+		if (this.data.isAfter(dataEvento)) {
+			return false;
 		}
-		return numeroPostiPrenotati;
+		return true;
 	}
 
-
+	// override to string
 	@Override
 	public String toString() {
-		return "titolo del evento: " + titolo + "\n" + "data del evento: " + data + "\n"
-				+ "inserici totale numeri posti: " + numeroPostiTotale + "\n" + "inserici totale posti prenotati"
-				+ numeroPostiPrenotati;
+		dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		return "titolo del evento: " + this.titolo + "\n" + "data del evento: " + this.data.format(dateFormatter) + "\n"
+				+ "posti totali disponibili: " + this.numeroPostiTotale;
 	}
 
 }
