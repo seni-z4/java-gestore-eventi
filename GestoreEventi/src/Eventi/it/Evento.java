@@ -98,7 +98,7 @@ public class Evento {
 	@Override
 	public String toString() {
 		dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		return "titolo del evento: " + this.titolo + "\n" + "data del evento: " + this.data.format(dateFormatter) + "\n"
+		return "Titolo del evento: " + this.titolo + "\n" + "la data del evento: " + this.data.format(dateFormatter) + "\n"
 				+ "posti totali disponibili: " + this.numeroPostiTotale;
 	}
 
