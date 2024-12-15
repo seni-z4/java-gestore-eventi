@@ -22,7 +22,7 @@ public class Evento {
   // check che la data nn e passata e il posto totale e positivo
   public void checkDate(LocalDate data, int postiTotali) {
     if (data.isAfter(LocalDate.now()) && postiTotali > 0) {
-      System.out.println("data checked + " + data + " poosti check" + postiTotali);
+      System.out.println("data checked + " + data + " poosti check " + postiTotali);
     } else {
       System.out.println("la data inserito e gia passato o posti totali sono negativi");
     }
@@ -53,5 +53,36 @@ public class Evento {
   public int getPostiPrenotati() {
     return PostiPrenotati;
   }
+
+  @Override
+  public String toString() {
+    return "Evento [titolo=" + titolo + ", data=" + data + "]";
+  }
+
+  // // methodo per prenotare
+  // public void prenota(int PostiPrenotati, int postiTotali, LocalDate data) {
+  // if (data.isAfter(LocalDate.now())) {
+  // if (PostiPrenotati > postiTotali) {
+  // System.out.println("non ci sono posti da prenotatre");
+  // } else {
+  // int totposti = 0;
+  // totposti += PostiPrenotati;
+  // // tot - posti totali per far vedere qunati posti sono rimarsti
+  // System.out.println(postiTotali - totposti + " posti rimasti da prenotare");
+  // }
+  // }
+  // }
+
+  // methodo per prenotare
+  // public void prenota(int postiTotali, LocalDate data) {
+  // if (data.isAfter(LocalDate.now())) {
+  // if (PostiPrenotati > postiTotali) {
+  // System.out.println("non ci sono posti da prenotatre");
+  // }
+  // if (postiTotali <= 0) {
+  // System.out.println("numero di posti deve essere maggiore di zeo");
+  // }
+  // }
+  // }
 
 }
