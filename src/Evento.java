@@ -46,6 +46,10 @@ public class Evento {
     this.data = data;
   }
 
+  public void setPostiTotali(int postiTotali) {
+    PostiTotali = postiTotali;
+  }
+
   public int getPostiTotali() {
     return PostiTotali;
   }
